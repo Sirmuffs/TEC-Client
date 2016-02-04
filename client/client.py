@@ -28,7 +28,7 @@ class Client:
         if self.config.read('config.ini').__len__() < 1:
             raise EnvironmentError
         self.ui = ClientUI(master, self, self.queue, self.send)
-        self.socket = socket()
+        self.socket = None
         self.listener = None
         self.session_log_name = time.strftime("%d.%m.%Y-%H.%M.%S.txt")
         self.startup()
