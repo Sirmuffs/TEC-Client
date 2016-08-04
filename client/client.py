@@ -20,7 +20,6 @@ __author__ = 'ToothlessRebel'
 class Client:
     def __init__(self, master):
         self.log = logging.getLogger(__name__)
-        self.log.warning('Starting logger.')
         self.master = master
         self.queue = Queue()
         self.connect = True
