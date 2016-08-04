@@ -33,7 +33,7 @@ class Client:
         self.session_log_name = time.strftime("%d.%m.%Y-%H.%M.%S.txt")
         self.startup()
         self.master.protocol("WM_DELETE_WINDOW", self.quit)
-        self.uname = ''
+        self.username = ''
         self.pwd = ''
 
     def send(self, command):
@@ -93,9 +93,9 @@ class Client:
                     else:
                         if line.find('SECRET') == 0:
                             secret = line[7:].strip()
-                            hash_string = self.uname + self.pwd + secret
+                            hash_string = self.username + self.pwd + secret
                             zealous_hash = hashlib.md5(hash_string.encode('utf-8')).hexdigest()
-                            self.send("USER " + self.uname)
+                            self.send("USER " + self.username)
                             self.send("SECRET " + secret)
                             self.send("HASH " + zealous_hash)
                             self.send("CHAR ")
@@ -137,7 +137,7 @@ class Client:
             response = requests.post(url, headers=header, data=data, allow_redirects=False, verify=False)
             self.log.debug('Got a response.')
             try:
-                self.uname = re.search('user=(.*?);', response.headers['set-cookie']).group(1)
+                self.username = re.search('user=(.*?);', response.headers['set-cookie']).group(1)
                 self.pwd = re.search('pass=(.*?);', response.headers['set-cookie']).group(1)
             except KeyError:
                 self.ui.draw_output('\nIncorrect credentials, please re-enter.')
